@@ -15,7 +15,7 @@ export default function PortfolioPage({ onClose }: PortfolioPageProps) {
   const [withdrawOpen, setWithdrawOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-fuchsia-600 p-6">
+    <div className="min-h-screen">
       {/* Header */}
       <header className="flex justify-between items-center mb-6 text-white">
         <h1 className="text-2xl font-semibold">Portfolio</h1>
@@ -100,58 +100,6 @@ export default function PortfolioPage({ onClose }: PortfolioPageProps) {
         isOpen={withdrawOpen}
         onClose={() => setWithdrawOpen(false)}
       />
-
-      {/* Holdings */}
-      <section className="mb-6">
-        <h2 className="text-white mb-3 font-semibold">Holdings</h2>
-        <div className="grid gap-4">
-          {[
-            { name: "AAPL", pnl: "+3.2%" },
-            { name: "GOOGL", pnl: "-1.1%" },
-          ].map((stock) => (
-            <Card
-              key={stock.name}
-              className="bg-white/10 border-white/20 text-white"
-            >
-              <CardContent className="p-4 flex justify-between items-center">
-                <div>
-                  <h3 className="font-semibold">{stock.name}</h3>
-                  <p className="text-sm opacity-80">Qty: 10 | Avg: ₹150</p>
-                </div>
-
-                <div className="text-right">
-                  <p
-                    className={
-                      stock.pnl.startsWith("+")
-                        ? "text-green-400"
-                        : "text-red-400"
-                    }
-                  >
-                    {stock.pnl}
-                  </p>
-                  <div className="flex gap-2 mt-2">
-                    <Button>Buy</Button>
-                    <Button variant="outline">Sell</Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Insights */}
-      <Card className="bg-white/10 border-white/20 text-white">
-        <CardContent className="p-4">
-          <p>
-            📈 Top performer today:{" "}
-            <span className="font-semibold">AAPL (+3.2%)</span>
-          </p>
-          <p className="opacity-80 text-sm">
-            You are heavily invested in Tech stocks
-          </p>
-        </CardContent>
-      </Card>
 
       <section>
         <PortfolioTabs />

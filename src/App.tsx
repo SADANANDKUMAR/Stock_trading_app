@@ -138,7 +138,7 @@ const [portfolioOpen, setPortfolioOpen] = useState<boolean>(false);
 
       
 
-<main className="container mx-auto px-4 py-6">
+<main className="container mx-auto py-6">
   {portfolioOpen ? (
     <PortfolioPage onClose={() => setPortfolioOpen(false)} />
   ) : (
