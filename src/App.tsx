@@ -9,7 +9,7 @@ import Notifications from './components/Notifications';
 import Settings from './components/Settings';
 import Profile from './components/Profile';
 import { StockData, MarketData } from './types';
-
+import PortfolioPage from './components/portfolio/PortfolioPage'
 const App: React.FC = () => {
   const [selectedStock, setSelectedStock] = useState<string>('AAPL');
   const [stockData, setStockData] = useState<StockData[]>([]);
@@ -18,6 +18,7 @@ const App: React.FC = () => {
   const [notificationsOpen, setNotificationsOpen] = useState<boolean>(false);
   const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
   const [profileOpen, setProfileOpen] = useState<boolean>(false);
+const [portfolioOpen, setPortfolioOpen] = useState<boolean>(false);
 
   // Mock data for demonstration
   useEffect(() => {
@@ -128,40 +129,47 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
-      <Header 
-        onNotificationsToggle={() => setNotificationsOpen(!notificationsOpen)}
-        onSettingsToggle={() => setSettingsOpen(!settingsOpen)}
-        onProfileToggle={() => setProfileOpen(!profileOpen)}
-      />
+    <Header 
+  onNotificationsToggle={() => setNotificationsOpen(!notificationsOpen)}
+  onSettingsToggle={() => setSettingsOpen(!settingsOpen)}
+  onProfileToggle={() => setProfileOpen(!profileOpen)}
+  onPortfolioClick={() => setPortfolioOpen(true)}
+/>
+
       
-      <main className="container mx-auto px-4 py-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 lg:grid-cols-4 gap-6"
-        >
-          {/* Market Overview */}
-          <div className="lg:col-span-4">
-            <MarketOverview data={marketData} />
-          </div>
 
-          {/* Main Content */}
-          <div className="lg:col-span-3 space-y-6">
-            <StockChart symbol={selectedStock} />
-            <StockGrid 
-              stocks={stockData} 
-              onStockSelect={setSelectedStock}
-              selectedStock={selectedStock}
-            />
-          </div>
+<main className="container mx-auto px-4 py-6">
+  {portfolioOpen ? (
+    <PortfolioPage onClose={() => setPortfolioOpen(false)} />
+  ) : (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="grid grid-cols-1 lg:grid-cols-4 gap-6"
+    >
+      {/* Market Overview */}
+      <div className="lg:col-span-4">
+        <MarketOverview data={marketData} />
+      </div>
 
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <Watchlist stocks={stockData} onStockSelect={setSelectedStock} />
-          </div>
-        </motion.div>
-      </main>
+      {/* Main Content */}
+      <div className="lg:col-span-3 space-y-6">
+        <StockChart symbol={selectedStock} />
+        <StockGrid 
+          stocks={stockData} 
+          onStockSelect={setSelectedStock}
+          selectedStock={selectedStock}
+        />
+      </div>
+
+      {/* Sidebar */}
+      <div className="lg:col-span-1">
+        <Watchlist stocks={stockData} onStockSelect={setSelectedStock} />
+      </div>
+    </motion.div>
+  )}
+</main>
 
       {/* Notifications Panel - Rendered at root level */}
       <Notifications 

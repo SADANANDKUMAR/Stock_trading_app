@@ -6,9 +6,15 @@ interface HeaderProps {
   onNotificationsToggle: () => void;
   onSettingsToggle: () => void;
   onProfileToggle: () => void;
+  onPortfolioClick: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onNotificationsToggle, onSettingsToggle, onProfileToggle }) => {
+const Header: React.FC<HeaderProps> = ({
+  onNotificationsToggle,
+  onSettingsToggle,
+  onProfileToggle,
+  onPortfolioClick
+}) => {
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -17,7 +23,8 @@ const Header: React.FC<HeaderProps> = ({ onNotificationsToggle, onSettingsToggle
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo and Title */}
+
+          {/* Logo */}
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg">
               <TrendingUp className="h-6 w-6 text-white" />
@@ -30,41 +37,45 @@ const Header: React.FC<HeaderProps> = ({ onNotificationsToggle, onSettingsToggle
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            <a href="#" className="text-white hover:text-blue-300 transition-colors">
+            <button className="text-white hover:text-blue-300 transition-colors">
               Markets
-            </a>
-            <a href="#" className="text-white hover:text-blue-300 transition-colors">
+            </button>
+            <button className="text-white hover:text-blue-300 transition-colors">
               Watchlist
-            </a>
-            <a href="#" className="text-white hover:text-blue-300 transition-colors">
+            </button>
+
+            <button
+              onClick={onPortfolioClick}
+              className="text-white hover:text-blue-300 transition-colors"
+            >
               Portfolio
-            </a>
-            <a href="#" className="text-white hover:text-blue-300 transition-colors">
+            </button>
+
+            <button className="text-white hover:text-blue-300 transition-colors">
               News
-            </a>
+            </button>
           </nav>
 
           {/* Actions */}
           <div className="flex items-center space-x-4">
-            <div className="relative">
-              <button 
-                onClick={onNotificationsToggle}
-                className="p-2 text-white hover:bg-white/10 rounded-lg transition-colors relative"
-              >
-                <Bell className="h-5 w-5" />
-                {/* Notification badge */}
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
-              </button>
-            </div>
-            <button 
+            <button
+              onClick={onNotificationsToggle}
+              className="p-2 text-white hover:bg-white/10 rounded-lg relative"
+            >
+              <Bell className="h-5 w-5" />
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+            </button>
+
+            <button
               onClick={onSettingsToggle}
-              className="p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+              className="p-2 text-white hover:bg-white/10 rounded-lg"
             >
               <Settings className="h-5 w-5" />
             </button>
-            <button 
+
+            <button
               onClick={onProfileToggle}
-              className="p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+              className="p-2 text-white hover:bg-white/10 rounded-lg"
             >
               <User className="h-5 w-5" />
             </button>
@@ -75,4 +86,4 @@ const Header: React.FC<HeaderProps> = ({ onNotificationsToggle, onSettingsToggle
   );
 };
 
-export default Header; 
+export default Header;
