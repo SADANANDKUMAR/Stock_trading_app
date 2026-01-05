@@ -1,6 +1,7 @@
 import { Eye, Plus } from "lucide-react";
 import { Button } from "../ui/Button";
 import { Card, CardContent } from "../ui/Card";
+import PortfolioTabs from "./PortfolioTabs";
 
 interface PortfolioPageProps {
   onClose: () => void;
@@ -8,7 +9,7 @@ interface PortfolioPageProps {
 
 export default function PortfolioPage({ onClose }: PortfolioPageProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-fuchsia-600 p-6">
+    <div className="min-h-screen p-6">
 
       {/* Header */}
       <header className="flex justify-between items-center mb-6 text-white">
@@ -124,6 +125,10 @@ export default function PortfolioPage({ onClose }: PortfolioPageProps) {
           </p>
         </CardContent>
       </Card>
+  
+      <section>
+        <PortfolioTabs />
+      </section>
     </div>
   );
 }
