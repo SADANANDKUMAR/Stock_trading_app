@@ -7,14 +7,18 @@ interface HeaderProps {
   onSettingsToggle: () => void;
   onProfileToggle: () => void;
   onPortfolioClick: () => void;
+   hideActions?: boolean; // 
+
 }
 
 const Header: React.FC<HeaderProps> = ({
   onNotificationsToggle,
   onSettingsToggle,
   onProfileToggle,
-  onPortfolioClick
+  onPortfolioClick,
+  hideActions   // 👈 ADD THIS
 }) => {
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -57,29 +61,33 @@ const Header: React.FC<HeaderProps> = ({
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={onNotificationsToggle}
-              className="p-2 text-white hover:bg-white/10 rounded-lg relative"
-            >
-              <Bell className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
-            </button>
+        {/* Actions */}
+{hideActions && (
+  <div className="flex items-center space-x-4">
+    <button
+      onClick={onNotificationsToggle}
+      className="p-2 text-white hover:bg-white/10 rounded-lg relative"
+    >
+      <Bell className="h-5 w-5" />
+      <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+    </button>
 
-            <button
-              onClick={onSettingsToggle}
-              className="p-2 text-white hover:bg-white/10 rounded-lg"
-            >
-              <Settings className="h-5 w-5" />
-            </button>
+    <button
+      onClick={onSettingsToggle}
+      className="p-2 text-white hover:bg-white/10 rounded-lg"
+    >
+      <Settings className="h-5 w-5" />
+    </button>
 
-            <button
-              onClick={onProfileToggle}
-              className="p-2 text-white hover:bg-white/10 rounded-lg"
-            >
-              <User className="h-5 w-5" />
-            </button>
-          </div>
+    <button
+      onClick={onProfileToggle}
+      className="p-2 text-white hover:bg-white/10 rounded-lg"
+    >
+      <User className="h-5 w-5" />
+    </button>
+  </div>
+)}
+
         </div>
       </div>
     </motion.header>

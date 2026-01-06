@@ -10,6 +10,8 @@ import Settings from './components/Settings';
 import Profile from './components/Profile';
 import { StockData, MarketData } from './types';
 import PortfolioPage from './components/portfolio/PortfolioPage'
+import LoginModal from './components/ui/LoginModal';
+import LoginPage from './LoginPage'
 const App: React.FC = () => {
   const [selectedStock, setSelectedStock] = useState<string>('AAPL');
   const [stockData, setStockData] = useState<StockData[]>([]);
@@ -19,6 +21,8 @@ const App: React.FC = () => {
   const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
   const [profileOpen, setProfileOpen] = useState<boolean>(false);
 const [portfolioOpen, setPortfolioOpen] = useState<boolean>(false);
+const [loginOpen, setLoginOpen] = useState(true); // show on load
+const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Mock data for demonstration
   useEffect(() => {
@@ -127,16 +131,36 @@ const [portfolioOpen, setPortfolioOpen] = useState<boolean>(false);
     );
   }
 
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
     <Header 
   onNotificationsToggle={() => setNotificationsOpen(!notificationsOpen)}
   onSettingsToggle={() => setSettingsOpen(!settingsOpen)}
   onProfileToggle={() => setProfileOpen(!profileOpen)}
-  onPortfolioClick={() => setPortfolioOpen(true)}
+  // onPortfolioClick={() => setPortfolioOpen(true)}
+  onPortfolioClick={() => {
+  if (!isLoggedIn) {
+    setLoginOpen(true); // force login
+  } else {
+    setPortfolioOpen(true);
+  }
+}}
+
+    hideActions={portfolioOpen} // 👈 KEY LINE
+
 />
 
-      
+ <LoginModal
+  isOpen={loginOpen}
+  onClose={() => setLoginOpen(false)}
+  onLoginSuccess={() => {
+    setIsLoggedIn(true);
+    setPortfolioOpen(true); // ✅ AUTO OPEN PORTFOLIO
+  }}
+/>
+
+{/* <LoginPage/> */}
 
 <main className="container mx-auto py-6">
   {portfolioOpen ? (
