@@ -1,3 +1,5 @@
+import { LucideIcon } from "lucide-react";
+
 export interface StockData {
   symbol: string;
   name: string;
@@ -41,6 +43,7 @@ export interface TabItem<T extends TabKey> {
   key: T;
   label: string;
   disabled?: boolean;
+  icon?: LucideIcon;
 }
 
 export interface TableColumn<T> {
